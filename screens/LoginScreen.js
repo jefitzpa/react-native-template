@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
 
 import * as SecureStore from 'expo-secure-store';
 
@@ -49,13 +49,16 @@ export default class LoginScreen extends React.Component {
     // the user will never know if the login failed.
     return (
       <View style={styles.container}>
-        <Text style={styles.loginText}>Login</Text>
+        <View style={styles.formcontainer}>
+        <Text style={styles.loginText}>Sign In</Text>
+        <Text>  Username</Text>
         <TextInput
           style={styles.input}
           onChangeText={text => this.setState({ email: text })}
           value={email}
           textContentType="emailAddress"
         />
+        <Text>  Password</Text>
         <TextInput
           style={styles.input}
           onChangeText={text => this.setState({ password: text })}
@@ -63,7 +66,17 @@ export default class LoginScreen extends React.Component {
           textContentType="password"
           secureTextEntry={true}
         />
-        <Button title="Submit" onPress={() => this.onSubmit()} />
+        <TouchableOpacity
+        onPress={() => this.onRegister()}
+        style={styles.resisterAsk}>
+        <Text style={styles.RegisterAsk}>New? Register Here</Text>
+      </TouchableOpacity>
+        <TouchableOpacity
+        onPress={() => this.onSubmit()}
+        style={styles.loginSubmit}>
+        <Text style={styles.loginSubmit}>Submit</Text>
+      </TouchableOpacity>
+      </View>
       </View>
     );
   }
@@ -73,24 +86,29 @@ export default class LoginScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fafafa',
+    backgroundColor: '#000000',
     padding: 30
+  },
+  formcontainer:{
+    backgroundColor: "white"
   },
   loginText: {
     fontSize: 30,
     textAlign: "center",
-    marginBottom: 30
+    marginBottom: 30,
+    color: "black"
   },
   input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 20
+    height: 60,
+    backgroundColor: "lightgray",
+    borderWidth: 6,
+    marginBottom: 20,
+    borderColor: "white"
   },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 20
+  loginSubmit: {
+    fontSize: 40, color: '#000000', textAlign: "center",
+  },
+  RegisterAsk: {
+    fontSize: 20, color: '#000000', textAlign: "center"
   }
 });
