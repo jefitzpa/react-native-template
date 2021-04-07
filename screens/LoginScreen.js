@@ -18,7 +18,7 @@ export default class LoginScreen extends React.Component {
   onSubmit = () => {
     const { email, password } = this.state;
 
-    fetch("https://webdev.cse.buffalo.edu/hci/<TEAM-NAME>/api/api/auth/login", {
+    fetch("https://webdev.cse.buffalo.edu/hci/elmas/api/api/auth/login", {
       method: "POST",
       headers: new Headers({
           'Content-Type': 'application/json'
