@@ -51,14 +51,15 @@ export default class LoginScreen extends React.Component {
       <View style={styles.container}>
         <View style={styles.formcontainer}>
         <Text style={styles.loginText}>Sign In</Text>
-        <Text>  Username</Text>
+        <View style={styles.inputContainer}>
+        <Text>Username</Text>
         <TextInput
           style={styles.input}
           onChangeText={text => this.setState({ email: text })}
           value={email}
           textContentType="emailAddress"
         />
-        <Text>  Password</Text>
+        <Text>Password</Text>
         <TextInput
           style={styles.input}
           onChangeText={text => this.setState({ password: text })}
@@ -66,6 +67,7 @@ export default class LoginScreen extends React.Component {
           textContentType="password"
           secureTextEntry={true}
         />
+        </View>
         <TouchableOpacity
         onPress={() => this.onRegister()}
         style={styles.resisterAsk}>
@@ -99,16 +101,19 @@ const styles = StyleSheet.create({
     color: "black"
   },
   input: {
-    height: 60,
+    height: 45,
     backgroundColor: "lightgray",
-    borderWidth: 6,
-    marginBottom: 20,
-    borderColor: "white"
+    marginBottom: 10,
+    paddingLeft: 6
   },
   loginSubmit: {
     fontSize: 40, color: '#000000', textAlign: "center",
   },
   RegisterAsk: {
     fontSize: 20, color: '#000000', textAlign: "center"
+  },
+  inputContainer: {
+    borderColor: "white",
+    borderWidth: 6
   }
 });
