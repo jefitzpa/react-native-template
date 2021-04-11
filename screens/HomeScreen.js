@@ -17,9 +17,26 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
         <View style={styles.card}>
-          <Text style={styles.cardTitle}>Card Title</Text>
-          <Text style={styles.cardDescription}>Card Description</Text>
+          <Image style={styles.cardprof} source={require("../profile-picture-holder.png")}></Image>
+          <View style={styles.cardtext}>
+            <Text style={styles.cardTitle}>New Pet</Text>
+            <Text style={styles.cardDescription}>Should we get a cat or a dog</Text>
           </View>
+          </View>
+          <View style={styles.card}>
+            <Image style={styles.cardprof} source={require("../profile-picture-holder.png")}></Image>
+            <View style={styles.cardtext}>
+              <Text style={styles.cardTitle}>Graphics Card</Text>
+              <Text style={styles.cardDescription}>Is the NVIDIA 3090 worth the wait</Text>
+            </View>
+            </View>
+            <View style={styles.card}>
+              <Image style={styles.cardprof} source={require("../profile-picture-holder.png")}></Image>
+              <View style={styles.cardtext}>
+                <Text style={styles.cardTitle}>New Car</Text>
+                <Text style={styles.cardDescription}>Should I get a ford or a Chevy</Text>
+              </View>
+              </View>
         </ScrollView>
       </View>
     );
@@ -47,7 +64,11 @@ const styles = StyleSheet.create({
    elevation: 2,
    backgroundColor: 'white',
    padding: 10,
-   marginBottom: 10
+   marginBottom: 10,
+   flexDirection: "row"
+ },
+ cardtext: {
+
  },
  cardTitle: {
    fontSize: 20,
@@ -55,5 +76,10 @@ const styles = StyleSheet.create({
  },
  cardDescription: {
    fontSize: 12
+ },
+ cardprof: {
+   height: "100%",
+   width: "12%",
+   marginRight: 10
  }
 });

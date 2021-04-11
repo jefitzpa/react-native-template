@@ -10,6 +10,9 @@ export default function(containerRef) {
         screens: {
           Home: 'home',
           Links: 'links',
+          Register: 'register',
+          Profile: 'profile',
+          Settings: 'settings'
         },
       },
     },

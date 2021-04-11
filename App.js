@@ -20,12 +20,13 @@ export default class App extends React.Component {
     }
 
     // uncomment this if you'd like to require a login every time the app is started
-    // SecureStore.deleteItemAsync('session')
+    SecureStore.deleteItemAsync('session')
   }
   componentDidMount() {
     // Check if there's a session when the app loads
     this.checkIfLoggedIn();
   }
+
   checkIfLoggedIn = () => {
     // See if there's a session data stored on the phone and set whatever is there to the state
     SecureStore.getItemAsync('session').then(sessionToken => {
@@ -48,7 +49,7 @@ export default class App extends React.Component {
               <Stack.Screen name="Root" component={BottomTabNavigator} />
             ) : (
                 <Stack.Screen
-                  name="Login"
+                  name="Committii"
                   component={LoginScreen}
                   initialParams={
                     {
