@@ -1,7 +1,8 @@
 {
   "expo": {
     "name": "jefitzpaELMASCommittii",
-    "slug": "jefitzpacommitt11",
+    "slug": "jefitzpaCommitii",
+    "owner": "jefitzpa",
     "platforms": [
       "ios",
       "android",
