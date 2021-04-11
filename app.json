@@ -25,7 +25,6 @@
     "ios": {
       "supportsTablet": true
     },
-    "description": "The Tab Navigation project template includes several example screens.",
-    "githubUrl": "https://github.com/jefitzpa/react-native-template"
+    "description": "The Tab Navigation project template includes several example screens."
   }
 }
