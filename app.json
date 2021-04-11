@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "HelloWorld",
-    "slug": "expo-template-tabs",
+    "name": "jefitzpaELMASCommittii",
+    "slug": "jefitzpacommittii",
     "platforms": [
       "ios",
       "android",
@@ -24,6 +24,8 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "The Tab Navigation project template includes several example screens.",
+    "githubUrl": "https://github.com/jefitzpa/react-native-template"
   }
 }
