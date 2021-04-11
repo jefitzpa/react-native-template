@@ -2,9 +2,8 @@ import * as React from 'react';
 import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
 
 import * as SecureStore from 'expo-secure-store';
-import RegisterScreen from './RegisterScreen.js'
 
-export default class LoginScreen extends React.Component {
+export default class RegisterScreen extends React.Component {
   constructor(props) {
     super(props)
 
@@ -14,12 +13,10 @@ export default class LoginScreen extends React.Component {
       password: ''
     }
   }
-  // On our button press, attempt to login
-  // this could use some error handling!
   onSubmit = () => {
     const { email, password } = this.state;
 
-    fetch("https://webdev.cse.buffalo.edu/hci/elmas/api/api/auth/login", {
+    fetch("https://webdev.cse.buffalo.edu/hci/elmas/api/api/auth/signup", {
       method: "POST",
       headers: new Headers({
           'Content-Type': 'application/json'
@@ -31,9 +28,8 @@ export default class LoginScreen extends React.Component {
     })
     .then(response => response.json())
     .then(json => {
-      console.log(`Logging in with session token: ${json.token}`);
+      console.log(`Registering`);
 
-      // enter login logic here
       SecureStore.setItemAsync('session', json.token).then(() => {
         this.props.route.params.onLoggedIn();
       });
@@ -43,10 +39,6 @@ export default class LoginScreen extends React.Component {
         // Do something when login fails
     })
   }
-
-  onRegister = () => {
-    navigation.navigate('Register')
-  }
   render() {
     const { email, password } = this.state
 
@@ -55,34 +47,6 @@ export default class LoginScreen extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.formcontainer}>
-        <Text style={styles.loginText}>Sign In</Text>
-        <View style={styles.inputContainer}>
-        <Text>Username</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={text => this.setState({ email: text })}
-          value={email}
-          textContentType="emailAddress"
-        />
-        <Text>Password</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={text => this.setState({ password: text })}
-          value={password}
-          textContentType="password"
-          secureTextEntry={true}
-        />
-        </View>
-        <TouchableOpacity
-        onPress={() => this.onRegister()}
-        style={styles.resisterAsk}>
-        <Text style={styles.RegisterAsk}>New? Register Here</Text>
-      </TouchableOpacity>
-        <TouchableOpacity
-        onPress={() => this.onSubmit()}
-        style={styles.loginSubmit}>
-        <Text style={styles.loginSubmit}>Submit</Text>
-      </TouchableOpacity>
       </View>
       </View>
     );

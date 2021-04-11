@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import LoginScreen from './screens/LoginScreen';
+import RegisterScreen from './screens/RegisterScreen';
 
 import * as SecureStore from 'expo-secure-store';
 
@@ -39,7 +40,7 @@ export default class App extends React.Component {
 
     return (
       <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+        {Platform.OS === 'ios' && <StatusBar barStyle="dark" />}
         <NavigationContainer>
           <Stack.Navigator>
             {/* Check to see if we have a session, if so continue, if not login */}
@@ -56,6 +57,7 @@ export default class App extends React.Component {
                   }
                 />
               )}
+              <Stack.Screen name="Register" component="RegisterScreen"/>
           </Stack.Navigator>
         </NavigationContainer>
       </View>
