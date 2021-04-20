@@ -21,7 +21,10 @@ export default class ProfileScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>Coming Soon</Text>
+        <View style={styles.profile}>
+          <Image src="../profile-picture-holder.png"></Image>
+          <Text>Hello, {this.state.username}</Text>
+        </View>
       </View>
     );
   }
@@ -36,7 +39,7 @@ const styles = StyleSheet.create({
   text: {
     color: "white"
   },
-  RegisterAsk: {
-    fontSize: 20, color: 'white', textAlign: "center"
+  profile: {
+    backgroundColor: 'white'
   },
 });
