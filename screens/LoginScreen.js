@@ -34,11 +34,13 @@ export default class LoginScreen extends React.Component {
     })
     .then(response => response.json())
     .then(json => {
-      console.log(`Logging in with session token: ${json.token}`);
+      console.log(`Logging in with session token: ${json.token} and ${json.userID}`);
 
       // enter login logic here
       SecureStore.setItemAsync('session', json.token).then(() => {
-        this.props.route.params.onLoggedIn();
+        SecureStore.setItemAsync('userID', String(json.userID)).then(()=>{
+                  this.props.route.params.onLoggedIn();
+        })
       });
     })
     .catch(exception => {
@@ -62,7 +64,9 @@ export default class LoginScreen extends React.Component {
 
       // enter login logic here
       SecureStore.setItemAsync('session', json.token).then(() => {
-        this.props.route.params.onLoggedIn();
+        SecureStore.setItemAsync('userID', String(json.userID)).then(()=>{
+                  this.props.route.params.onLoggedIn();
+        })
       });
     })
     .catch(exception => {
