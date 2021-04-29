@@ -21,7 +21,7 @@ export default class ProfileScreen extends React.Component {
       followers: 0,
       profpic: "../profile-picture-holder.png",
     };
-    this.getInfo = this.getInfo.bind(this)
+    this.getInfo = this.getInfo.bind(this);
 
     SecureStore.getItemAsync('session').then(sessionToken => {
       this.setState({
@@ -41,6 +41,7 @@ export default class ProfileScreen extends React.Component {
       session: ""
     })
   }
+
 
     getInfo() {
     fetch("https://webdev.cse.buffalo.edu/hci/elmas/api/api/users/" + this.state.userID, {
