@@ -2,6 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/core';
 import * as React from 'react';
 
+
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
@@ -25,7 +26,16 @@ export default function BottomTabNavigator({ navigation, route }) {
         component={HomeScreen}
         options={{
           title: 'Home',
+          unmountOnBlur: true, 
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="ios-home" />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{
+          title: 'Create Poll',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="ios-add" />,
         }}
       />
       <BottomTab.Screen
@@ -36,19 +46,11 @@ export default function BottomTabNavigator({ navigation, route }) {
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="ios-contacts" />,
         }}
       />
-      <BottomTab.Screen
-        name="Settings"
-        component={SettingsScreen}
-        options={{
-          title: 'Settings',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="ios-settings" />,
-        }}
-      />
     </BottomTab.Navigator>
   );
 }
 
 function getHeaderTitle(route) {
   const routeName = getFocusedRouteNameFromRoute(route);
-  return "Commitii"
+  return "Committii"
 }

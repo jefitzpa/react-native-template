@@ -12,7 +12,7 @@ export default function(containerRef) {
           Links: 'links',
           Register: 'register',
           Profile: 'profile',
-          Settings: 'settings'
+          Createpoll: 'Createpoll'
         },
       },
     },

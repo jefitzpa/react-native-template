@@ -22,10 +22,6 @@ export default class HomeScreen extends React.Component {
       profpic: "../profile-picture-holder.png",
     };
 
-    this.loadPosts = this.loadPosts.bind(this);
-    this.createPost = this.createPost.bind(this);
-    this.getInfo = this.getInfo.bind(this);
-
     SecureStore.getItemAsync('session').then(sessionToken => {
       this.setState({
         session: sessionToken
@@ -35,11 +31,10 @@ export default class HomeScreen extends React.Component {
       this.setState({
         userID: ID
       })
-      this.getInfo()
     });
   }
 
-  getInfo() {
+  componentDidMount() {
   fetch("https://webdev.cse.buffalo.edu/hci/elmas/api/api/users/" + this.state.userID, {
     method: "get",
     headers: {
@@ -51,7 +46,6 @@ export default class HomeScreen extends React.Component {
     .then(
       result => {
         if (result) {
-          console.log(result.role);
           this.setState({
             // IMPORTANT!  You need to guard against any of these values being null.  If they are, it will
             // try and make the form component uncontrolled, which plays havoc with react
@@ -59,6 +53,33 @@ export default class HomeScreen extends React.Component {
             email: result.email || "",
             profpic: 'https://webdev.cse.buffalo.edu' + result.role || "../profile-picture-holder.png",
           });
+          let url = "https://webdev.cse.buffalo.edu/hci/elmas/api/api/posts";
+
+          fetch(url, {
+            method: "get",
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer '+ this.state.session
+            },
+
+          })
+            .then(res => res.json())
+            .then(
+              result => {
+                if (result) {
+                  this.setState({
+                    isLoaded: true,
+                    posts: result[0]
+                  });
+                }
+              },
+              error => {
+                this.setState({
+                  isLoaded: false,
+                  error
+                });
+              }
+            );
         }
       },
       error => {
@@ -67,80 +88,32 @@ export default class HomeScreen extends React.Component {
     );
 }
 
-  loadPosts() {
-  let url = "https://webdev.cse.buffalo.edu/hci/elmas/api/api/posts";
-
-  fetch(url, {
-    method: "get",
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer '+ this.state.session
-    },
-
-  })
-    .then(res => res.json())
-    .then(
-      result => {
-        if (result) {
-          this.setState({
-            isLoaded: true,
-            posts: result[0]
-          });
-          console.log(result)
-        }
-      },
-      error => {
-        this.setState({
-          isLoaded: true,
-          error
-        });
-        console.log(error)
-      }
-    );
-}
-
-createPost(posts) {
-  for (var post in posts){
-  console.log(post)
-  let content = post.content;
-  let likes = 0;
-  let comments = post.commentCount;
-
-  if (content.length < 2) {
-    content[0] = "Undefined"
-    content[1] = "Undefined"
+  createPost(post){
+      let content = post['content'].split(',');
+      let choices = content[0].replace('choice1:', '') + " vs " + content[1].replace('choice2:', '');
+      let data = String(post['id']) + " - " + String(post['id'] - Math.floor(Math.random() * 10));
+      return (
+        <View style={styles.card}>
+          <Image style={styles.cardprof} source={require("../profile-picture-holder.png")}></Image>
+          <View style={styles.cardtext}>
+            <Text style={styles.cardTitle}>{choices}</Text>
+            <Text style={styles.cardDescription}>{data}</Text>
+            <Text style={styles.cardDescription}>{content[4]}</Text>
+            </View>
+        </View>
+      );
   }
-
- return (
-   <View style={styles.card}>
-     <Image style={styles.cardprof} source={require("../profile-picture-holder.png")}></Image>
-     <View style={styles.cardtext}>
-       <Text style={styles.cardTitle}>{content}</Text>
-     </View>
-     </View>
- )
-}
-}
 
   render() {
-    this.loadPosts();
-    return (
-      <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          <View style={styles.card}>
-            <Image style={styles.cardprof} source={require("../profile-picture-holder.png")}></Image>
-            <View style={styles.cardtext}>
-              <Text style={styles.cardTitle}>Graphics Card</Text>
-              <Text style={styles.cardDescription}>Is the NVIDIA 3090 worth the wait</Text>
-            </View>
-            </View>
-            {
-              this.createPost(this.state.posts)
-            }
-        </ScrollView>
-      </View>
-    );
-  }
+      console.log("red")
+      return (
+        <View style={styles.container}>
+          <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+            {this.state.posts.map(post => this.createPost(post))}
+          </ScrollView>
+        </View>
+      );
+}
 }
 
 HomeScreen.navigationOptions = {
@@ -175,11 +148,11 @@ const styles = StyleSheet.create({
    marginBottom: 10
  },
  cardDescription: {
-   fontSize: 12
+   fontSize: 12,
  },
  cardprof: {
    height: "100%",
-   width: "12%",
+   width: "18%",
    marginRight: 10
  }
 });
